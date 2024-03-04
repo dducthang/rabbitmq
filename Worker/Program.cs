@@ -20,6 +20,8 @@ consumer.Received += (model, arg) =>
     var message = Encoding.UTF8.GetString(body);
     Console.WriteLine($" [X] received {message}");
 
+    channel.BasicAck(deliveryTag: arg.DeliveryTag, multiple: false);
+
     int dots = message.Split('.').Length - 1;
     Thread.Sleep(dots * 1000);
 };
